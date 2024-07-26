@@ -16,7 +16,12 @@ mix setup
 iex -S mix phx.server
 ```
 
-## Goals
+## Stuff I would like to change as a priority
+
+ 1. Use streams with async loading for the characters page
+ 2. Persist the api call cache so restarting the server does not mean becoming slow again.
+
+## Original Goals
 1. Fetch the characters from the Marvel API. Hint: You will use the URL http://gateway.marvel.com/v1/public/characters?[authenticated_params]
 
 2. Render the characters in a grid view on the UI. We want to see a little CSS creativity here, so we intentionally did not provide designs. The grid view should be of the character thumbnail images with the character names overlayed on the bottom of the thumbnail. Since the text is hard to read in some cases, be sure to include a background on the text with a slightly transparent gradient overlaying the thumbnail to make the white text pop on the image while maintaining the visibility of the image. Feel free to choose LiveView or any SPA framework or library (Elm, React, Vue, Svelte, etc).

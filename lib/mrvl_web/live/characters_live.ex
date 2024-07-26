@@ -114,9 +114,22 @@ defmodule MrvlWeb.CharactersLive do
     """
   end
 
+  @impl LiveView
+  def handle_event("load-more", _unsigned_params, socket) do
+    socket
+    |> assign_characters()
+    |> then(&{:noreply, &1})
+  end
+
   defp assign_characters(socket) do
-    params = %{}
+    limit = 20
+    current_offset = Map.get(socket.assigns, :offset, -limit)
+    offset = current_offset + limit
+    params = %{limit: limit, offset: offset}
     characters = Marvel.list_characters(params)
-    assign(socket, characters: characters)
+
+    socket
+    |> assign(characters: characters)
+    |> assign(:offset, offset)
   end
 end
