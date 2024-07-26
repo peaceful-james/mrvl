@@ -3,6 +3,7 @@ defmodule Mrvl.Characters.Character do
   use Ecto.Schema
 
   alias Mrvl.Characters.Comic
+  alias Mrvl.Characters.Event
 
   schema "characters" do
     field :marvel_id, :string
@@ -11,5 +12,7 @@ defmodule Mrvl.Characters.Character do
     field :thumbnail, :string
     embeds_many :comics, Comic
     field :comics_count, :integer
+    embeds_many :events, Event
+    field :events_count, :integer
   end
 end

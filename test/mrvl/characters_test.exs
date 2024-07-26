@@ -16,6 +16,9 @@ defmodule Mrvl.CharactersTest do
       assert is_list(character.comics)
       assert Enum.count(character.comics) == 12
       assert character.comics_count == 12
+      assert is_list(character.events)
+      assert Enum.count(character.events) == 1
+      assert character.events_count == 1
     end
   end
 end
