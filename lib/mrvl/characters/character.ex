@@ -10,6 +10,6 @@ defmodule Mrvl.Characters.Character do
     field :description, :string
     field :thumbnail, :string
     embeds_many :comics, Comic
-    field :comic_count, :integer
+    field :comics_count, :integer
   end
 end
