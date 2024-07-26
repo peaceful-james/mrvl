@@ -51,6 +51,7 @@ defmodule Mrvl.Marvel.Api do
 
     encoded_query =
       %{"apikey" => public_key, "ts" => ts, "hash" => hash}
+      |> Map.merge(%{"orderBy" => "name"})
       |> Map.merge(params)
       |> URI.encode_query()
 
