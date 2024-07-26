@@ -61,6 +61,17 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Cache API results using Nebulex
+# Max 500MB of memory
+config :mrvl, Mrvl.Marvel.ApiCache,
+  gc_interval: :timer.hours(24),
+  backend: :shards,
+  partitions: 2,
+  max_size: 6,
+  allocated_memory: 500_000_000,
+  gc_cleanup_min_timeout: :timer.seconds(10),
+  gc_cleanup_max_timeout: :timer.minutes(10)
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
