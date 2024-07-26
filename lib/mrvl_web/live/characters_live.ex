@@ -1,4 +1,4 @@
-defmodule MrvlWeb.HomeLive do
+defmodule MrvlWeb.CharactersLive do
   @moduledoc false
   use MrvlWeb, :live_view
 

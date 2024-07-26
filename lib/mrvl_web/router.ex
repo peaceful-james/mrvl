@@ -17,8 +17,8 @@ defmodule MrvlWeb.Router do
   scope "/", MrvlWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :index
-    live "/character/:marvel_id", HomeLive, :character
+    live "/", CharactersLive, :index
+    live "/character/:marvel_id", CharactersLive, :character
   end
 
   # Other scopes may use custom stacks.
