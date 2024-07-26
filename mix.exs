@@ -32,6 +32,7 @@ defmodule Mrvl.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:mox, "~> 1.1", only: :test},
       {:tesla, "~> 1.11"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},

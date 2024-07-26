@@ -9,6 +9,9 @@ defmodule Mrvl.Marvel.Api do
   429 if request limit reached
   """
 
+  alias Mrvl.Marvel.ApiBehaviour
+  @behaviour ApiBehaviour
+
   use Tesla
 
   plug Tesla.Middleware.BaseUrl, "http://gateway.marvel.com/v1/"
@@ -25,7 +28,8 @@ defmodule Mrvl.Marvel.Api do
   Other params can be found here:
   https://developer.marvel.com/docs#!/public/getCreatorCollection_get_0
   """
-  @spec get_characters(%{String.t() => term()}) :: term()
+  @impl ApiBehaviour
+  @spec get_characters(%{String.t() => term()}) :: {:ok, Tesla.Env.t()}
   def get_characters(params \\ %{}) do
     "public/characters"
     |> path_with_auth(params)

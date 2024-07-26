@@ -1,7 +1,7 @@
-defmodule Mrvl.Marvel.ApiTest do
-  use Mrvl.DataCase
+defmodule Mrvl.Marvel.MockedApi do
+  @moduledoc false
 
-  defp example_response do
+  def get_characters(_params) do
     # Mrvl.Marvel.Api.get_characters(%{"limit" => 1})
     {:ok,
      %Tesla.Env{
@@ -218,12 +218,10 @@ defmodule Mrvl.Marvel.ApiTest do
                    },
                    %{
                      "name" => "Avengers: The Initiative (2007) #19 - Int",
-                     "resourceURI" => "http://gateway.marvel.com/v1/public/stories/49889",
-                     ...
+                     "resourceURI" => "http://gateway.marvel.com/v1/public/stories/49889"
                    },
                    %{
-                     "name" => "Avengers: The Initiative (2007) #14, Spotlight Variant - Int",
-                     ...
+                     "name" => "Avengers: The Initiative (2007) #14, Spotlight Variant - Int"
                    }
                  ],
                  "returned" => 20
