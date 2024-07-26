@@ -21,7 +21,9 @@ if System.get_env("PHX_SERVER") do
 end
 
 marvel_public_key = System.get_env("MARVEL_PUBLIC_KEY") || raise("MARVEL_PUBLIC_KEY is missing")
-marvel_private_key = System.get_env("MARVEL_PRIVATE_KEY") || raise("MARVEL_PRIVATE_KEY is missing")
+
+marvel_private_key =
+  System.get_env("MARVEL_PRIVATE_KEY") || raise("MARVEL_PRIVATE_KEY is missing")
 
 config :mrvl, :marvel_public_key, marvel_public_key
 config :mrvl, :marvel_private_key, marvel_private_key
