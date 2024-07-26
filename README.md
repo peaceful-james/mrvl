@@ -36,9 +36,3 @@ iex -S mix phx.server
 9. What are some ways that we can improve the current code we just wrote? Think through the following:
 	- Cache improvements (invalidation, pre-fetching, data optimization, handling API call failures, etc).
 	- Improvements to the API interface.
-
-## Handing in the solution
-
-- Once you are done, ensure you committed and pushed all your changes, and then you can send your solution directly by email to [jobs@10ex.dev](mailto:jobs@10ex.dev?subject=10ex.dev%20Elixir%20Assignment), for example, as a zip archive. Please make sure the solution contains the entire project, including the `.git` directory, so we can have a look at your commits.
-
-- [Schedule a follow up review call](https://meetings.hubspot.com/garrett-tacoronte/technical-review-call) to go over your final implementation.
