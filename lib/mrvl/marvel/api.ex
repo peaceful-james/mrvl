@@ -9,6 +9,8 @@ defmodule Mrvl.Marvel.Api do
   429 if request limit reached
   """
 
+  # import Nebulex.Caching.Decorators
+  use Nebulex.Caching
   alias Mrvl.Marvel.ApiBehaviour
   @behaviour ApiBehaviour
 
@@ -28,6 +30,7 @@ defmodule Mrvl.Marvel.Api do
   Other params can be found here:
   https://developer.marvel.com/docs#!/public/getCreatorCollection_get_0
   """
+  @decorate cacheable(cache: Mrvl.Marvel.ApiCache, opts: [ttl: :timer.hours(24)])
   @impl ApiBehaviour
   @spec get_characters(%{String.t() => term()}) :: {:ok, Tesla.Env.t()}
   def get_characters(params \\ %{}) do

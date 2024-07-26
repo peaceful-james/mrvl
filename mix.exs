@@ -32,6 +32,8 @@ defmodule Mrvl.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:shards, "~> 1.1"},
+      {:decorator, "~> 1.4"},
       {:nebulex, "~> 2.6"},
       {:mox, "~> 1.1", only: :test},
       {:tesla, "~> 1.11"},

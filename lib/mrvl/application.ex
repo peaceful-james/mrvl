@@ -14,8 +14,7 @@ defmodule Mrvl.Application do
       {Phoenix.PubSub, name: Mrvl.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Mrvl.Finch},
-      # Start a worker by calling: Mrvl.Worker.start_link(arg)
-      # {Mrvl.Worker, arg},
+      {Mrvl.Marvel.ApiCache, []},
       # Start to serve requests, typically the last entry
       MrvlWeb.Endpoint
     ]
