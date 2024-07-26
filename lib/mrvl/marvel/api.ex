@@ -36,9 +36,9 @@ defmodule Mrvl.Marvel.Api do
     |> get()
   end
 
-  defp build_timestamp, do: :microsecond |> NaiveDateTime.utc_now() |> NaiveDateTime.to_iso8601()
+  def build_timestamp, do: :microsecond |> NaiveDateTime.utc_now() |> NaiveDateTime.to_iso8601()
 
-  defp build_hash(to_hash) do
+  def build_hash(to_hash) do
     to_hash |> :erlang.md5() |> Base.encode16(case: :lower)
   end
 
