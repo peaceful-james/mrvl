@@ -13,4 +13,8 @@ defmodule Mrvl.ApiCallLogs do
     |> ApiCallLog.changeset(attrs)
     |> Repo.insert()
   end
+
+  def list do
+    Repo.all(ApiCallLog)
+  end
 end

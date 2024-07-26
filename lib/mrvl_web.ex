@@ -54,6 +54,7 @@ defmodule MrvlWeb do
       use Phoenix.LiveView,
         layout: {MrvlWeb.Layouts, :app}
 
+      alias Phoenix.LiveView
       unquote(html_helpers())
     end
   end
