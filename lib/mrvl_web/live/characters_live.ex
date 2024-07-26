@@ -69,15 +69,31 @@ defmodule MrvlWeb.CharactersLive do
 
   defp character_details(assigns) do
     ~H"""
-    <div id={"character-details-#{@character.marvel_id}"} class="w-full flex">
-      <img src={@character.thumbnail} class="object-cover h-96 w-96" />
-      <div class="bg-black/80 text-white text-center grow pt-8">
-        <p>
-          <%= @character.name %>
-        </p>
-        <p>
-          <%= @character.description %>
-        </p>
+    <div id={"character-details-#{@character.marvel_id}"} class="w-full text-white bg-black text-center">
+      <div class="w-full flex">
+        <img src={@character.thumbnail} class="object-cover h-96 w-96" />
+        <div class="text-center grow pt-8 px-2 space-y-4">
+          <p class="text-lg">
+            <%= @character.name %>
+          </p>
+          <p>
+            <%= @character.description %>
+          </p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 mt-4">
+        <div id="comics">
+          <h3 class="uppercase">Comics (<%= @character.comics_count %>)</h3>
+          <p :for={comic <- @character.comics}>
+            <%= comic.name %>
+          </p>
+        </div>
+        <div id="events">
+          <h3 class="uppercase">Events (<%= @character.events_count %>)</h3>
+          <p :for={event <- @character.events}>
+            <%= event.name %>
+          </p>
+        </div>
       </div>
     </div>
     """
