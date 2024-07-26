@@ -39,7 +39,7 @@ defmodule MrvlWeb.CharactersLive do
     <div id="characters-live">
       <div
         id="characters-grid"
-        class="w-full px-32 grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-4 justify-center"
+        class="w-full px-2 md:px-32 grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-4 justify-center"
       >
         <.character_logo :for={character <- @characters} character={character} />
         <.modal
@@ -96,7 +96,7 @@ defmodule MrvlWeb.CharactersLive do
       class="w-full text-white bg-black text-center"
     >
       <div class="w-full flex">
-        <img src={@character.thumbnail} class="object-cover h-96 w-96" />
+        <img src={@character.thumbnail} class="object-coverh-32 w-32 md:h-96 md:w-96" />
         <div class="text-center grow pt-8 px-2 space-y-4">
           <p class="text-lg">
             <%= @character.name %>
