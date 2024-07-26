@@ -52,7 +52,7 @@ defmodule MrvlWeb.CharactersLive do
         </.modal>
       </div>
       <div class="w-full flex justify-center mt-8">
-        <.async_result :let={async_result} assign={@async_result}>
+        <.async_result assign={@async_result}>
           <:loading>
             <p class="text-lg text-amber-500 animate-bounce my-6">
               Please wait. We are loading more characters. This might take a while...
@@ -138,13 +138,12 @@ defmodule MrvlWeb.CharactersLive do
     socket
     |> assign(:async_result, AsyncResult.loading())
     |> start_async(:list_characters, fn ->
-      characters = Marvel.list_characters(params)
+      Marvel.list_characters(params)
     end)
   end
 
+  @impl LiveView
   def handle_async(:list_characters, {:ok, new_characters}, socket) do
-    %{characters: characters} = socket.assigns
-
     socket
     |> assign(:async_result, AsyncResult.ok(new_characters))
     |> update(:characters, &(&1 ++ new_characters))
