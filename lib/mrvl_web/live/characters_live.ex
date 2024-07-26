@@ -34,16 +34,26 @@ defmodule MrvlWeb.CharactersLive do
   @impl LiveView
   def render(assigns) do
     ~H"""
-    <div id="home-live" class="w-full px-32 grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-4">
-      <.character_logo :for={character <- @characters} character={character} />
-      <.modal
-        :if={@modal_character}
-        show={true}
-        id={"character-modal-#{@modal_character.marvel_id}"}
-        on_cancel={JS.patch(~p"/")}
+    <div id="characters-live">
+      <div
+        id="characters-grid"
+        class="w-full px-32 grid gap-4 md:gap-6 grid-cols-2 md:grid-cols-4 justify-center"
       >
-        <.character_details character={@modal_character} />
-      </.modal>
+        <.character_logo :for={character <- @characters} character={character} />
+        <.modal
+          :if={@modal_character}
+          show={true}
+          id={"character-modal-#{@modal_character.marvel_id}"}
+          on_cancel={JS.patch(~p"/")}
+        >
+          <.character_details character={@modal_character} />
+        </.modal>
+      </div>
+      <div class="w-full flex justify-center mt-8">
+        <.button phx-click="load-more">
+          Load more
+        </.button>
+      </div>
     </div>
     """
   end
@@ -52,14 +62,16 @@ defmodule MrvlWeb.CharactersLive do
 
   defp character_logo(assigns) do
     ~H"""
-    <div
-      id={"character-logo-#{@character.marvel_id}"}
-      class="relative rounded-md h-32 w-32 cursor-pointer hover:border-2"
-      phx-click={JS.patch(~p"/character/#{@character.marvel_id}")}
-    >
-      <img src={@character.thumbnail} class="object-cover h-32 w-32" />
-      <div class="absolute -bottom-0 w-full bg-black/60 text-white text-center">
-        <%= @character.name %>
+    <div class="flex justify-center w-full">
+      <div
+        id={"character-logo-#{@character.marvel_id}"}
+        class="relative rounded-md h-32 w-32 cursor-pointer hover:border-2"
+        phx-click={JS.patch(~p"/character/#{@character.marvel_id}")}
+      >
+        <img src={@character.thumbnail} class="object-cover h-32 w-32" />
+        <div class="absolute -bottom-0 w-full bg-black/60 text-white text-center">
+          <%= @character.name %>
+        </div>
       </div>
     </div>
     """
@@ -69,7 +81,10 @@ defmodule MrvlWeb.CharactersLive do
 
   defp character_details(assigns) do
     ~H"""
-    <div id={"character-details-#{@character.marvel_id}"} class="w-full text-white bg-black text-center">
+    <div
+      id={"character-details-#{@character.marvel_id}"}
+      class="w-full text-white bg-black text-center"
+    >
       <div class="w-full flex">
         <img src={@character.thumbnail} class="object-cover h-96 w-96" />
         <div class="text-center grow pt-8 px-2 space-y-4">
