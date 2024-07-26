@@ -1,9 +1,12 @@
 defmodule Mrvl.ApiCallLogs.ApiCallLog do
   @moduledoc false
 
+  use Ecto.Schema
+  import Ecto.Changeset
+
   schema "api_call_log" do
-    add :status, :integer, null: true
-    add :url, :string, null: true
+    field :status, :integer
+    field :url, :string
     timestamps(updated_at: false)
   end
 
