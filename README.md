@@ -16,11 +16,6 @@ mix setup
 iex -S mix phx.server
 ```
 
-## Stuff I would like to change as a priority
-
- 1. Use streams with async loading for the characters page
- 2. Persist the api call cache so restarting the server does not mean becoming slow again.
-
 ## Original Goals
 1. Fetch the characters from the Marvel API. Hint: You will use the URL http://gateway.marvel.com/v1/public/characters?[authenticated_params]
 
