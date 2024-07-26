@@ -36,3 +36,15 @@ iex -S mix phx.server
 9. What are some ways that we can improve the current code we just wrote? Think through the following:
 	- Cache improvements (invalidation, pre-fetching, data optimization, handling API call failures, etc).
 	- Improvements to the API interface.
+
+
+## Improvements
+
+Having done the assigned task, I think a better approach would be a running job
+that simply re-fetches all characters every 24 hours. 
+Marvel themselves recommend caching results for 24 hours.
+This could use the `etag` hash to avoid expensive requests and parsing.
+The characters would then be updated in the database, if needed.
+This would make the first load after server reboot much much faster.
+Moreover, we could then use streams instead of async updated assigns
+(because the modal URL could fetch from the database using the ID)
