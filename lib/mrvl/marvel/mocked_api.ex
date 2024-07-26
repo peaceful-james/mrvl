@@ -1,7 +1,7 @@
 defmodule Mrvl.Marvel.MockedApi do
   @moduledoc false
 
-  def get_characters(_params) do
+  def get_characters(%{"limit" => 1, "offset" => 0}) do
     # Mrvl.Marvel.Api.get_characters(%{"limit" => 1})
     {:ok,
      %Tesla.Env{

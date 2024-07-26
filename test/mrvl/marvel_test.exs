@@ -10,7 +10,7 @@ defmodule Mrvl.MarvelTest do
         Mrvl.Marvel.MockedApi.get_characters(params)
       end)
 
-      params = %{}
+      params = %{"limit" => 1, "offset" => 0}
       assert Marvel.get_characters(params) == Mrvl.Marvel.MockedApi.get_characters(params)
     end
   end
