@@ -144,10 +144,7 @@ defmodule MrvlWeb.CharactersLive do
 
   def handle_async(:list_characters, {:ok, new_characters}, socket) do
     %{characters: characters} = socket.assigns
-    IO.inspect(new_characters, label: "HYU")
 
-    # current_offset = Map.get(socket.assigns, :offset, -@limit)
-    # offset = current_offset + @limit
     socket
     |> assign(:async_result, AsyncResult.ok(new_characters))
     |> update(:characters, &(&1 ++ new_characters))
