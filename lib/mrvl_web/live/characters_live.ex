@@ -53,7 +53,7 @@ defmodule MrvlWeb.CharactersLive do
   defp character_logo(assigns) do
     ~H"""
     <div
-      id={"character-#{@character.marvel_id}"}
+      id={"character-logo-#{@character.marvel_id}"}
       class="relative rounded-md h-32 w-32 cursor-pointer hover:border-2"
       phx-click={JS.patch(~p"/character/#{@character.marvel_id}")}
     >
@@ -69,14 +69,15 @@ defmodule MrvlWeb.CharactersLive do
 
   defp character_details(assigns) do
     ~H"""
-    <div
-      id={"character-#{@character.marvel_id}"}
-      class="relative rounded-md h-32 w-32 cursor-pointer hover:border-2"
-      phx-click={JS.patch(~p"/character/#{@character.marvel_id}")}
-    >
-      <img src={@character.thumbnail} class="object-cover h-32 w-32" />
-      <div class="absolute -bottom-0 w-full bg-black/60 text-white text-center">
-        <%= @character.name %>
+    <div id={"character-details-#{@character.marvel_id}"} class="w-full flex">
+      <img src={@character.thumbnail} class="object-cover h-96 w-96" />
+      <div class="bg-black/80 text-white text-center grow pt-8">
+        <p>
+          <%= @character.name %>
+        </p>
+        <p>
+          <%= @character.description %>
+        </p>
       </div>
     </div>
     """
