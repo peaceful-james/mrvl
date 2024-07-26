@@ -7,9 +7,39 @@
 # General application configuration
 import Config
 
-config :mrvl,
-  ecto_repos: [Mrvl.Repo],
-  generators: [timestamp_type: :utc_datetime]
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.17.11",
+  mrvl: [
+    args: ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configures Elixir's Logger
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id]
+
+# Configures the mailer
+#
+# By default it uses the "Local" adapter which stores the emails
+# locally. You can see the emails in your browser, at "/dev/mailbox".
+#
+# For production it's recommended to configure a different adapter
+# at the `config/runtime.exs`.
+config :mrvl, Mrvl.Mailer, adapter: Swoosh.Adapters.Local
+
+# Cache API results using Nebulex
+# Max 500MB of memory
+config :mrvl, Mrvl.Marvel.ApiCache,
+  gc_interval: :timer.hours(24),
+  backend: :shards,
+  partitions: 2,
+  max_size: 6,
+  allocated_memory: 500_000_000,
+  gc_cleanup_min_timeout: :timer.seconds(10),
+  gc_cleanup_max_timeout: :timer.minutes(10)
 
 # Configures the endpoint
 config :mrvl, MrvlWeb.Endpoint,
@@ -22,24 +52,12 @@ config :mrvl, MrvlWeb.Endpoint,
   pubsub_server: Mrvl.PubSub,
   live_view: [signing_salt: "e/m1TCDY"]
 
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :mrvl, Mrvl.Mailer, adapter: Swoosh.Adapters.Local
+config :mrvl,
+  ecto_repos: [Mrvl.Repo],
+  generators: [timestamp_type: :utc_datetime]
 
-# Configure esbuild (the version is required)
-config :esbuild,
-  version: "0.17.11",
-  mrvl: [
-    args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
 
 # Configure tailwind (the version is required)
 config :tailwind,
@@ -52,25 +70,6 @@ config :tailwind,
     ),
     cd: Path.expand("../assets", __DIR__)
   ]
-
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
-
-# Use Jason for JSON parsing in Phoenix
-config :phoenix, :json_library, Jason
-
-# Cache API results using Nebulex
-# Max 500MB of memory
-config :mrvl, Mrvl.Marvel.ApiCache,
-  gc_interval: :timer.hours(24),
-  backend: :shards,
-  partitions: 2,
-  max_size: 6,
-  allocated_memory: 500_000_000,
-  gc_cleanup_min_timeout: :timer.seconds(10),
-  gc_cleanup_max_timeout: :timer.minutes(10)
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -17,8 +17,7 @@ defmodule Mrvl.Marvel.MockedApi do
          {"content-type", "application/json; charset=utf-8"}
        ],
        body: %{
-         "attributionHTML" =>
-           "<a href=\"http://marvel.com\">Data provided by Marvel. © 2024 MARVEL</a>",
+         "attributionHTML" => "<a href=\"http://marvel.com\">Data provided by Marvel. © 2024 MARVEL</a>",
          "attributionText" => "Data provided by Marvel. © 2024 MARVEL",
          "code" => 200,
          "copyright" => "© 2024 MARVEL",
@@ -30,8 +29,7 @@ defmodule Mrvl.Marvel.MockedApi do
              %{
                "comics" => %{
                  "available" => 12,
-                 "collectionURI" =>
-                   "http://gateway.marvel.com/v1/public/characters/1011334/comics",
+                 "collectionURI" => "http://gateway.marvel.com/v1/public/characters/1011334/comics",
                  "items" => [
                    %{
                      "name" => "Avengers: The Initiative (2007) #14",
@@ -87,8 +85,7 @@ defmodule Mrvl.Marvel.MockedApi do
                "description" => "",
                "events" => %{
                  "available" => 1,
-                 "collectionURI" =>
-                   "http://gateway.marvel.com/v1/public/characters/1011334/events",
+                 "collectionURI" => "http://gateway.marvel.com/v1/public/characters/1011334/events",
                  "items" => [
                    %{
                      "name" => "Secret Invasion",
@@ -103,8 +100,7 @@ defmodule Mrvl.Marvel.MockedApi do
                "resourceURI" => "http://gateway.marvel.com/v1/public/characters/1011334",
                "series" => %{
                  "available" => 3,
-                 "collectionURI" =>
-                   "http://gateway.marvel.com/v1/public/characters/1011334/series",
+                 "collectionURI" => "http://gateway.marvel.com/v1/public/characters/1011334/series",
                  "items" => [
                    %{
                      "name" => "Avengers: The Initiative (2007 - 2010)",
@@ -123,8 +119,7 @@ defmodule Mrvl.Marvel.MockedApi do
                },
                "stories" => %{
                  "available" => 21,
-                 "collectionURI" =>
-                   "http://gateway.marvel.com/v1/public/characters/1011334/stories",
+                 "collectionURI" => "http://gateway.marvel.com/v1/public/characters/1011334/stories",
                  "items" => [
                    %{
                      "name" => "Cover #19947",

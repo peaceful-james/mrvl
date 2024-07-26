@@ -8,13 +8,13 @@ defmodule Mrvl.Marvel.Api do
   304 if data "digest" has not changed
   429 if request limit reached
   """
+  @behaviour Mrvl.Marvel.ApiBehaviour
 
   # import Nebulex.Caching.Decorators
   use Nebulex.Caching
-  alias Mrvl.Marvel.ApiBehaviour
-  @behaviour ApiBehaviour
-
   use Tesla
+
+  alias Mrvl.Marvel.ApiBehaviour
 
   plug Tesla.Middleware.BaseUrl, "http://gateway.marvel.com/v1/"
   plug Tesla.Middleware.JSON
@@ -55,7 +55,7 @@ defmodule Mrvl.Marvel.Api do
 
     encoded_query =
       %{"apikey" => public_key, "ts" => ts, "hash" => hash}
-      |> Map.merge(%{"orderBy" => "name"})
+      |> Map.put("orderBy", "name")
       |> Map.merge(params)
       |> URI.encode_query()
 

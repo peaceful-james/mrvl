@@ -2,6 +2,7 @@ defmodule Mrvl.ApiCallLogs.ApiCallLog do
   @moduledoc false
 
   use Ecto.Schema
+
   import Ecto.Changeset
 
   schema "api_call_logs" do
@@ -11,7 +12,6 @@ defmodule Mrvl.ApiCallLogs.ApiCallLog do
   end
 
   def changeset(struct, attrs) do
-    struct
-    |> cast(attrs, [:status, :url])
+    cast(struct, attrs, [:status, :url])
   end
 end

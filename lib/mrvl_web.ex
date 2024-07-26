@@ -23,10 +23,11 @@ defmodule MrvlWeb do
     quote do
       use Phoenix.Router, helpers: false
 
-      # Import common connection and controller functions to use in pipelines
-      import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+
+      # Import common connection and controller functions to use in pipelines
+      import Plug.Conn
     end
   end
 
@@ -42,8 +43,8 @@ defmodule MrvlWeb do
         formats: [:html, :json],
         layouts: [html: MrvlWeb.Layouts]
 
-      import Plug.Conn
       import MrvlWeb.Gettext
+      import Plug.Conn
 
       unquote(verified_routes())
     end
@@ -55,6 +56,7 @@ defmodule MrvlWeb do
         layout: {MrvlWeb.Layouts, :app}
 
       alias Phoenix.LiveView
+
       unquote(html_helpers())
     end
   end
@@ -82,11 +84,11 @@ defmodule MrvlWeb do
 
   defp html_helpers do
     quote do
+      import MrvlWeb.CoreComponents
+      import MrvlWeb.Gettext
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import MrvlWeb.CoreComponents
-      import MrvlWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

@@ -1,4 +1,5 @@
 defmodule Mrvl.Marvel.ApiCallLogsMiddleware do
+  @moduledoc false
   @behaviour Tesla.Middleware
 
   alias Mrvl.ApiCallLogs

@@ -1,4 +1,5 @@
 defmodule Mrvl.Characters.Character do
+  @moduledoc false
   use Ecto.Schema
 
   schema "characters" do

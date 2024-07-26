@@ -19,15 +19,14 @@ defmodule MrvlWeb.ConnCase do
 
   using do
     quote do
+      use MrvlWeb, :verified_routes
+      import MrvlWeb.ConnCase
+      import Phoenix.ConnTest
+      import Plug.Conn
       # The default endpoint for testing
       @endpoint MrvlWeb.Endpoint
 
-      use MrvlWeb, :verified_routes
-
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
-      import MrvlWeb.ConnCase
     end
   end
 

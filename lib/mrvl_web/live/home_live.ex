@@ -1,9 +1,11 @@
 defmodule MrvlWeb.HomeLive do
   @moduledoc false
   use MrvlWeb, :live_view
+
   import MrvlWeb.CoreComponents
-  alias Mrvl.Marvel
+
   alias Mrvl.Characters.Character
+  alias Mrvl.Marvel
 
   @impl LiveView
   def mount(params, _session, socket) do
@@ -18,6 +20,7 @@ defmodule MrvlWeb.HomeLive do
   @impl LiveView
   def handle_params(unsigned_params, _url, socket) do
     modal_character_id = Map.get(unsigned_params, "marvel_id")
+
     socket
     |> assign(:modal_character_id, modal_character_id)
     |> then(&{:noreply, &1})
