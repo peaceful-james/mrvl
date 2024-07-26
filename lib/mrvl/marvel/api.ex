@@ -18,6 +18,7 @@ defmodule Mrvl.Marvel.Api do
 
   plug Tesla.Middleware.BaseUrl, "http://gateway.marvel.com/v1/"
   plug Tesla.Middleware.JSON
+  plug Mrvl.Marvel.ApiCallLogsMiddleware
 
   @doc """
   Fetches list of characters.
