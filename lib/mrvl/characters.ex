@@ -2,6 +2,7 @@ defmodule Mrvl.Characters do
   @moduledoc """
   Marvel Characters, parsed from their API
   """
+  alias Mrvl.Characters.Character
 
   def from_api_response(%Tesla.Env{} = response) do
     %{
@@ -13,7 +14,7 @@ defmodule Mrvl.Characters do
       }
     } = response.body
 
-Enum.map(results, &from_api_character/1)
+    Enum.map(results, &from_api_character/1)
   end
 
   def from_api_character(%{
@@ -22,7 +23,7 @@ Enum.map(results, &from_api_character/1)
         "description" => description,
         "thumbnail" => %{"path" => thumbnail_path, "extension" => thumbnail_extension}
       }) do
-    %Mrvl.Character{
+    %Character{
       marvel_id: marvel_id,
       name: name,
       description: description,
