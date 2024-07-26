@@ -12,11 +12,23 @@ defmodule Mrvl.Marvel.Api do
   use Tesla
 
   plug Tesla.Middleware.BaseUrl, "http://gateway.marvel.com/v1/"
+  plug Tesla.Middleware.JSON
 
-  @spec get_characters() :: term()
-  def get_characters do
+  @doc """
+  Fetches list of characters.
+
+  Recognised params:
+
+  - limit: number of results to return
+  - offset: number of results to skip
+
+  Other params can be found here:
+  https://developer.marvel.com/docs#!/public/getCreatorCollection_get_0
+  """
+  @spec get_characters(%{String.t() => term()}) :: term()
+  def get_characters(params \\ %{}) do
     "public/characters"
-    |> path_with_auth()
+    |> path_with_auth(params)
     |> get()
   end
 
@@ -26,14 +38,18 @@ defmodule Mrvl.Marvel.Api do
     to_hash |> :erlang.md5() |> Base.encode16(case: :lower)
   end
 
-  defp path_with_auth(base_path) do
+  defp path_with_auth(base_path, params) do
     private_key = Application.get_env(:mrvl, :marvel_private_key)
     public_key = Application.get_env(:mrvl, :marvel_public_key)
 
     ts = build_timestamp()
     hash = build_hash(ts <> private_key <> public_key)
 
-    encoded_query = URI.encode_query(%{"apikey" => public_key, "ts" => ts, "hash" => hash})
+    encoded_query =
+      %{"apikey" => public_key, "ts" => ts, "hash" => hash}
+      |> Map.merge(params)
+      |> URI.encode_query()
+
     base_path |> URI.new!() |> URI.append_query(encoded_query) |> URI.to_string()
   end
 end
