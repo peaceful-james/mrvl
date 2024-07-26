@@ -27,7 +27,7 @@ defmodule MrvlWeb.HomeLive do
     <div id={"character-#{@character.marvel_id}"} class="relative rounded-md h-32 w-32">
       <img src={@character.thumbnail} class="object-cover h-32 w-32" />
       <div class="absolute -bottom-0 w-full bg-black/60 text-white text-center">
-      <%= @character.name %>
+        <%= @character.name %>
       </div>
     </div>
     """
