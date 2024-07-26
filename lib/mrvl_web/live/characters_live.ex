@@ -10,6 +10,8 @@ defmodule MrvlWeb.CharactersLive do
   @impl LiveView
   def mount(_params, _session, socket) do
     socket
+    |> assign(:offset, 0)
+    |> assign(:characters, [])
     |> assign_characters()
     |> then(&{:ok, &1})
   end
@@ -50,9 +52,17 @@ defmodule MrvlWeb.CharactersLive do
         </.modal>
       </div>
       <div class="w-full flex justify-center mt-8">
-        <.button phx-click="load-more">
-          Load more
-        </.button>
+        <.async_result :let={async_result} assign={@async_result}>
+          <:loading>
+            <p class="text-lg text-amber-500 animate-bounce my-6">
+              Please wait. We are loading more characters. This might take a while...
+            </p>
+          </:loading>
+          <:failed :let={_failure}>there was an error loading the characters</:failed>
+          <.button phx-click="load-more">
+            Load more
+          </.button>
+        </.async_result>
       </div>
     </div>
     """
@@ -121,15 +131,27 @@ defmodule MrvlWeb.CharactersLive do
     |> then(&{:noreply, &1})
   end
 
+  @limit 20
   defp assign_characters(socket) do
-    limit = 20
-    current_offset = Map.get(socket.assigns, :offset, -limit)
-    offset = current_offset + limit
-    params = %{limit: limit, offset: offset}
-    characters = Marvel.list_characters(params)
+    params = %{limit: @limit, offset: socket.assigns.offset}
 
     socket
-    |> assign(characters: characters)
-    |> assign(:offset, offset)
+    |> assign(:async_result, AsyncResult.loading())
+    |> start_async(:list_characters, fn ->
+      characters = Marvel.list_characters(params)
+    end)
+  end
+
+  def handle_async(:list_characters, {:ok, new_characters}, socket) do
+    %{characters: characters} = socket.assigns
+    IO.inspect(new_characters, label: "HYU")
+
+    # current_offset = Map.get(socket.assigns, :offset, -@limit)
+    # offset = current_offset + @limit
+    socket
+    |> assign(:async_result, AsyncResult.ok(new_characters))
+    |> update(:characters, &(&1 ++ new_characters))
+    |> update(:offset, &(&1 + @limit))
+    |> then(&{:noreply, &1})
   end
 end
