@@ -48,3 +48,5 @@ The characters would then be updated in the database, if needed.
 This would make the first load after server reboot much much faster.
 Moreover, we could then use streams instead of async updated assigns
 (because the modal URL could fetch from the database using the ID)
+
+Using streams would also fix the bug of visiting a character that is not in the current assigns.
