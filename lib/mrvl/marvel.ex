@@ -12,6 +12,9 @@ defmodule Mrvl.Marvel do
     api_impl().get_characters(params)
   end
 
+  @doc """
+  Get a high-level list of %Character{} structs.
+  """
   def list_characters(params) do
     {:ok, response} = get_characters(params)
     Characters.from_api_response(response)
