@@ -12,9 +12,10 @@ defmodule MrvlWeb.CharactersLive do
     socket
     |> assign(:offset, 0)
     |> assign(:characters, [])
-    |> assign_characters()
     |> then(&{:ok, &1})
   end
+
+  @limit 20
 
   @impl LiveView
   def handle_params(unsigned_params, _url, socket) do
@@ -28,8 +29,22 @@ defmodule MrvlWeb.CharactersLive do
         end
       end
 
+    page =
+      if socket.assigns.live_action == :index do
+        page_string = Map.get(unsigned_params, "page", "0")
+
+        case Integer.parse(page_string) do
+          {page, ""} -> page
+          _ -> 0
+        end
+      else
+        0
+      end
+
     socket
+    |> assign(:offset, page * @limit)
     |> assign(:modal_character, modal_character)
+    |> assign_characters()
     |> then(&{:noreply, &1})
   end
 
@@ -131,7 +146,6 @@ defmodule MrvlWeb.CharactersLive do
     |> then(&{:noreply, &1})
   end
 
-  @limit 20
   defp assign_characters(socket) do
     params = %{limit: @limit, offset: socket.assigns.offset}
 
